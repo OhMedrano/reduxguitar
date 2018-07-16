@@ -17,7 +17,6 @@ module.exports = {
 		loaders:[
 			{
  			 test: /\.(ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
- 			
 			  loader: 'url?limit=65000&mimetype=application/octet-stream&name=public/fonts/[name].[ext]'
 
 			},
@@ -30,6 +29,10 @@ module.exports = {
 				test: /\.(scss|css)$/,
 				loader:"style-loader!css-loader!sass-loader"
 			},
+  		{
+    	 test: /\.json$/,
+        loader: 'json-loader'
+  		},
 
 		]
 

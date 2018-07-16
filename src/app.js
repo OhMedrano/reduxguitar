@@ -1,21 +1,18 @@
 import '../css/style.scss';
-import GuitarBody from './Components/GuitarBody.js';
 import MakeElement from './Tools/MakeElement.js';
 
-console.log('hello world');
 
 
 
 
-
-function HomeScreen(){
-	var body = document.querySelector('body');
+function RenderSite(){
+	let body = document.querySelector('body');
 
 	console.log(body);
 
-	var basicElem = new MakeElement;
-      basicElem.createEle('div','basic',[0,12,12,12],'ayy'); 
+	let bodyContainer = new MakeElement;
+      bodyContainer.createEle('div','bodyContainer',[0,12,12,12],'bodyContain'); 
 
 }
-GuitarBody.prototype.mainBody();
-HomeScreen();
+
+RenderSite();
