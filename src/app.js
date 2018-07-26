@@ -13,13 +13,9 @@ function RenderSite(){
   let makeEle = new MakeElement;
 
 	let bodyContainer = makeEle.createEle('div','bodyContainer',[12,12,12,12],'bodyContain');  
-      
-
-
       bodyContainer.innerHTML = `<div> Hey, Welcome to PureJS </div>`;
 
   
-
   body.append(bodyContainer);
 }
 
