@@ -1,0 +1,410 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react';
+
+class ScaleDis extends React.Component {
+  constructor() {
+    super()
+  }
+
+  render() {
+    const convertNotes = this.props.convertNotes;
+    const intervalName = this.props.intervalNames;
+    const sharpsOrFlats = this.props.currentNotes;
+    
+    const convertDisplay = convertNotes.map((note,i) => {
+      let conNote = sharpsOrFlats[note];
+      if(i >= 8) {
+        return <div key={i} className={`scaleDisNote ${intervalName[i].intClass[1]}`}> {conNote} </div>
+      } else {
+        return <div key={i} className={`scaleDisNote ${intervalName[i].intClass[0]}`}> {conNote} </div>
+      }
+    })
+ 
+    return (
+      <div className='guitarIntervalContain'>
+        {convertDisplay}
+
+
+      </div>
+    )
+  }
+}
+
+
+
+class GuitarString extends React.Component {
+  constructor() {
+    super() 
+  }
+
+  render() {
+    const stringRoot = this.props.stringName;
+    const stringScale = this.props.currentScale;
+    const intNames = this.props.intervalNames;
+
+    const fretArray = Array(25).fill(null);
+    let frets = fretArray.map((fret,i) => {
+      let shownNote = this.props.currentKey[(stringRoot+i)%12];
+      let fretNote = (stringRoot+i)%12;
+
+
+      for(let x=0;x <stringScale.length;x++) {
+        if(stringScale[x] == fretNote) {
+
+          if(x>=7) {
+            return <div className={`fret${i} frets`} key={i}> <div className={`innerfret ${intNames[x].intClass[1]}`}>{shownNote} </div> </div>
+          } else {
+            return <div className={`fret${i} frets`} key={i}> <div className={`innerfret ${intNames[x].intClass[0]}`}>{shownNote} </div> </div>
+          }
+        }
+      }
+
+    return <div className={`fret${i} frets`} key={i}> <div className={`innerfret normal`}>{shownNote} </div> </div>
+
+    })
+    return (
+      <div className={this.props.className}> 
+        {frets}
+      </div>
+    );
+  }
+}
+
+class GuitarTune extends React.Component {
+  constructor() {
+    super()
+
+    this.changeTune = this.changeTune.bind(this);
+  }
+
+  changeTune(e,targ) {
+    this.props.changeNote(e,targ);
+  }
+
+  render() {
+    const musicNotes = this.props.displayNotes;
+    const targetString = this.props.targetString;
+    const targetVal = this.props.targetStringValue;
+    const showNote = musicNotes.map((note,i) => {
+  
+      let noted = musicNotes[i];
+
+      if(i == targetVal) {
+        return <div className={'currentTuneNote chooseNotes'} onClick={()=>{this.changeTune(i,targetString)}}key={i}> {noted} </div>
+      } else {
+        return <div className={'chooseNotes'} onClick={()=>{this.changeTune(i,targetString)}}key={i}> {noted} </div>
+      }
+    });
+    
+    return (
+      <div className='tuning-up'> 
+        {showNote}
+
+      </div>
+    )
+  }
+}
+
+class GuitarScale extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      sharpFlat: true,
+      scaleChoose: false,
+      tuningGroup: false,
+      musicalNotes: [
+        {"sharps": ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'],},
+        {"flats": ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'],}
+      ],
+      musicScales: [
+        {'name':'Major/Ionian','scale':[0,2,4,5,7,9,11]},
+        {'name':'Minor/Aeolian','scale':[0,2,3,5,7,8,10]},
+        {'name':'Dorian','scale':[0,2,3,5,7,9,10]},
+        {'name':'Phrygian','scale':[0,1,3,5,7,8,10]},
+        {'name':'Lydian','scale':[0,2,4,6,7,9,11]},
+        {'name':'Mixolydian','scale':[0,2,4,5,7,9,10]},
+        {'name':'Locrian','scale':[0,1,3,5,6,8,10]},
+        {'name':'Minor Pentatonic','scale':[0,3,5,7,10]},
+        {'name':'Major Pentatonic','scale':[0,2,4,7,9]},
+        {'name':'Minor Blues','scale':[0,3,5,6,7,10]},
+        {'name':'Harmonic Minor','scale':[0,2,3,5,7,8,11]},
+        {'name':'Melodic Minor','scale':[0,2,3,5,7,9,11]},
+        {'name':'Diminished / 8-Tone','scale':[0,2,3,5,6,8,11]},
+        {'name':'Persian','scale':[0,1,4,5,6,8,10]},
+        {'name':'Hirajoshi','scale':[0,2,3,7,8]},
+        {'name':'Kumoi','scale':[0,2,3,7,9]},
+        {'name':'Chinese','scale':[0,4,6,7,11]},
+        {'name':'Egyptian','scale':[0,2,5,7,10]},
+        {'name':'Hungarian Gypsy','scale':[0,1,4,7,9]},
+        {'name':'Romanian','scale':[0,2,3,6,7,9,10]},
+        {'name':'Neopolitan Minor','scale':[0,1,3,5,7,8,11]},
+        {'name':'Neopolitan Major','scale':[0,1,4,6,7,8,10]},
+        {'name':'Prometheus','scale':[0,2,4,6,10]},
+        {'name':'Ritusen','scale':[0,2,5,7,9]}
+      ],
+      scaleIntervals: [
+        {'name':'Tonic','secName':'Octave','intClass':['tonic','octave']},
+        {'name':'Minor Second','secName':'Minor Ninth','intClass':['minSec','minNin']},
+        {'name':'Major Second','secName':'Major Ninth','intClass':['majSec','majNin']},
+        {'name':'Minor Third','secName':'Minor Tenth','intClass':['minThird','minTen']},
+        {'name':'Major Third','secName':'Major Tenth','intClass':['majThird','majTen']},
+        {'name':'Perfect Fourth','secName':'Perfect 11th','intClass':['perFour','perEle']},
+        {'name':'Augmented Fourth','secName':'Augmented 11th','intClass':['augFour','augEle']},
+        {'name':'Perfect Fifth','secName':'Perfect 12th','intClass':['perFif','perTwe']},
+        {'name':'Minor Sixth','secName':'Minor 13th','intClass':['minSix','minPBS']},  // ...PBS. Channel 13. 
+        {'name':'Major Sixth','secName':'Major 13th','intClass':['majSix','majPBS']},
+        {'name':'Minor Seventh','secName':'Minor 14th','intClass':['minSev','minFTeen']},
+        {'name':'Major Seventh','secName':'Major 14th','intClass':['majSev','majFTeen']}  
+      ],
+      strings: [
+        {'name': 'stringTopE','stringVal':7},
+        {'name': 'stringB','stringVal':2},
+        {'name': 'stringG','stringVal':10},
+        {'name': 'stringD','stringVal':5},
+        {'name': 'stringA','stringVal':0},
+        {'name': 'stringBottomE','stringVal':7},
+      ],
+      currentScale: null,
+      currentRoot: null,
+      currentIntervals: null,
+      currentConvertScale: null,
+      currentScaleIndex: 0,
+    
+    }
+
+    this.changeStringRoot = this.changeStringRoot.bind(this);
+    this.changeScaleRoot = this.changeScaleRoot.bind(this);
+
+  }
+  
+  changeStringRoot(i,stringName) {
+    const nameString = stringName;
+    const noteSelect = i;
+    const strings = this.state.strings.slice(); 
+    strings[stringName].stringVal = noteSelect;
+    
+    this.setState({strings: strings});
+
+  }
+
+  componentWillMount() {
+    const defaultRoot = 3;
+    const defaultScale =  this.state.musicScales[0];
+
+    this.defaultScaled = this.getScaleNotes(defaultRoot, defaultScale);
+    this.setState({
+      currentRoot: defaultRoot
+    })
+  }
+
+  changeScaleRoot(i) {
+    this.getScaleNotes(i,this.state.currentScale)
+    this.setState({
+      currentRoot: i,
+    })
+  }
+
+  getScaleNotes(rot, scale) {
+    const convertedNotes = [];
+    const convertedIntervals = [];
+    const scaleFormula = scale.scale;
+    const changedNotes = scaleFormula.map((note,i) => {
+      let convert = (note+rot)%12;
+      for(let x=0;x<this.state.scaleIntervals.length;x++) {
+        if(note%8 == x) {
+          convertedIntervals.push(this.state.scaleIntervals[note]);
+        }
+      }
+      convertedNotes.push(convert);
+    });
+
+    this.setState({
+      currentScale: scale,
+      currentIntervals: convertedIntervals,
+      currentConvertScale: convertedNotes,
+    })
+  }
+
+
+  render() {
+
+    const strings = this.state.strings;
+    const musicScales = this.state.musicScales;
+    let notes = this.state.sharpFlat ? this.state.musicalNotes[0].sharps : this.state.musicalNotes[0].flats;
+    let scaledNotes = this.state.currentscale ? this.state.currentScale : this.state.musicScales[0].scale;
+    let currentScaled = this.state.currentScale ? this.state.currentScale : {'name':'Minor/Aeolian','scale':[0,2,3,5,7,8,10]};
+    let currentRooted = this.state.currentRoot ? this.state.currentRoot : 3;
+    let convertedNotes = this.state.currentConvertScale;
+    let interNames = this.state.currentIntervals;
+    
+    let scalesChanges = musicScales.map((scal,i) => {
+      console.log(scal);
+      if(this.state.currentScaleIndex == i ) {
+        return (
+          <div className='scale-select-item activescale' key={i} onClick={() => { this.getScaleNotes(currentRooted, scal), this.setState({currentScaleIndex: i})}}> {scal.name}</div>
+        )
+      } else {
+        return (
+          <div className='scale-select-item' key={i} onClick={() => { this.getScaleNotes(currentRooted, scal), this.setState({currentScaleIndex: i})}}> {scal.name}</div>
+        )
+      }
+    })
+
+    let displayedScales = 
+            <div className='display-scale'> 
+              <div className='current-scale-name'> Current Scale: <div className='scaleRoot'>{notes[currentRooted]}</div>  <div className='scaleName'>{currentScaled.name}</div></div>   
+              <ScaleDis 
+                currentScale={currentScaled} 
+                currentNotes={notes} 
+                convertNotes={convertedNotes} 
+                intervalNames={interNames}> 
+
+              </ScaleDis>
+        
+
+            </div>;
+      
+    
+    let scaleSelections =   <div className='choose-scale'>
+                              <div className='scale-selection'>
+                                      <div className='root-selection'> 
+                                       <GuitarTune 
+                                          targetStringValue={currentRooted} 
+                                          changeNote={this.changeScaleRoot}  
+                                          targetString={'currentRoot'} 
+                                          displayNotes={notes}> 
+                                        </GuitarTune>
+
+
+                                      </div>
+                                      <div className='scales'> 
+                                        {scalesChanges}
+                                      </div>
+
+                                  </div>
+
+                          </div>;
+
+    let chooseStrings = <div className='guitar-tune'>
+                          
+                          <GuitarTune 
+                          targetStringValue={this.state.strings[0].stringVal}  
+                          changeNote={this.changeStringRoot}
+                          targetString={0} 
+                          displayNotes={notes}> 
+                          </GuitarTune>           
+                          <GuitarTune 
+                          targetStringValue={this.state.strings[1].stringVal} 
+                          changeNote={this.changeStringRoot}  
+                          targetString={1} 
+                          displayNotes={notes}> 
+                          </GuitarTune>
+                          <GuitarTune 
+                          targetStringValue={this.state.strings[2].stringVal} 
+                          changeNote={this.changeStringRoot}  
+                          targetString={2} 
+                          displayNotes={notes}> 
+                          </GuitarTune>
+                          <GuitarTune 
+                          targetStringValue={this.state.strings[3].stringVal} 
+                          changeNote={this.changeStringRoot} 
+                          targetString={3} 
+                          displayNotes={notes}> 
+                          </GuitarTune>
+                          <GuitarTune 
+                          targetStringValue={this.state.strings[4].stringVal} 
+                          changeNote={this.changeStringRoot} 
+                          targetString={4} 
+                          displayNotes={notes}> 
+                          </GuitarTune>
+                          <GuitarTune 
+                          targetStringValue={this.state.strings[5].stringVal} 
+                          changeNote={this.changeStringRoot}  
+                          targetString={5} 
+                          displayNotes={notes}> 
+                          </GuitarTune>
+
+                        </div>;
+
+    let scaleDisplayChange = this.state.scaleChoose ? scaleSelections : displayedScales;
+
+    return (
+      <div> 
+        <div className='guitar-controls'> 
+          <div className={'current-tune'}> 
+            <div className='stringDisplay stringTopE'>Top string is currently on {notes[this.state.strings[0].stringVal]}</div>  
+            <div className='stringDisplay stringB'>Second string is currently on {notes[this.state.strings[1].stringVal]}</div>                
+            <div className='stringDisplay stringG'>Third string is currently on {notes[this.state.strings[2].stringVal]}</div>  
+            <div className='stringDisplay stringD'>Fourth string is currently on {notes[this.state.strings[3].stringVal]}</div>  
+            <div className='stringDisplay stringA'>Fifth string is currently on {notes[this.state.strings[4].stringVal]}</div>  
+            <div className='stringDisplay stringBottomE'>Bottom string is currently on {notes[this.state.strings[5].stringVal]}</div>          
+          </div>
+
+          <div className='guitar-scaleDisplay'>
+              {scaleDisplayChange}
+            </div>
+          <div className='guitar-control-switch'> 
+            {chooseStrings}
+
+            <div className='guitar-fixed-tunes'>
+
+
+            </div>
+
+          </div>            
+        </div>
+
+      
+
+          <div className='guitar-scales'>  
+
+            <GuitarString className={'strings stringTopE'}
+                stringName={this.state.strings[0].stringVal}
+                currentScale={convertedNotes} 
+                currentKey={notes}
+                intervalNames={interNames}
+                >
+            </GuitarString>
+            <GuitarString className={'strings stringB'}
+                stringName={this.state.strings[1].stringVal}
+                currentScale={convertedNotes} 
+                currentKey={notes}
+                intervalNames={interNames}
+                >
+            </GuitarString>
+            <GuitarString className={'strings stringG'}
+                stringName={this.state.strings[2].stringVal}
+                currentScale={convertedNotes} 
+                currentKey={notes}
+                intervalNames={interNames}
+                >
+            </GuitarString>
+            <GuitarString className={'strings stringD'}
+                stringName={this.state.strings[3].stringVal}
+                currentScale={convertedNotes} 
+                currentKey={notes}
+                intervalNames={interNames}
+                >
+            </GuitarString>
+            <GuitarString className={'strings stringA'}
+                stringName={this.state.strings[4].stringVal}
+                currentScale={convertedNotes} 
+                currentKey={notes}
+                intervalNames={interNames} 
+                >
+            </GuitarString>
+            <GuitarString className={'strings stringBottomE'}
+                stringName={this.state.strings[5].stringVal}
+                currentScale={convertedNotes} 
+                currentKey={notes}
+                intervalNames={interNames}
+                >
+            </GuitarString>
+          </div>
+      </div>
+    ); 
+  }
+}
+
+
+export default GuitarScale;

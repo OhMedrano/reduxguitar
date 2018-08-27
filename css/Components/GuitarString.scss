@@ -1,0 +1,259 @@
+.tonic, .octave {
+  background: #F2291A;
+}
+.minSec, .minNin {
+  background: #e58324;
+}
+.majSec, .majNin {
+  background: #fcb11b;
+}
+.minThird, .minTen {
+  background: #f2ce33;
+}
+.majThird, .majTen {
+  background: #fced2f;
+}
+.perFour, .perEle {
+  background: #bce536;
+}
+.augFour, .augEle {
+  background: #64fc2f;
+}
+.perFif, .perTwe {
+  background: #33e5bc;
+}
+.minSix, .minPBS {
+  background: #2b61f2;
+}
+.majSix, .majPBS {
+  background: #8f34e5;
+}
+.minSev, .minFTeen {
+  background: #e92dfc;
+}
+.majSev, .majFTeen {
+  background: #f24493;
+}
+
+.guitar-controls {
+  display: flex;
+  flex-direction: row; 
+  .current-tune {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    font-size: 20px;
+
+    .stringDisplay {
+      border: 1px solid black;
+    }
+  }
+  .guitar-control-switch {
+    width: 30%;
+  .guitar-tune {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    text-align: center;
+
+    .tuning-up {
+      display: flex;
+
+      
+      .chooseNotes {
+        width: 8.33%;
+        border: 1px solid black;
+      }
+
+      .currentTuneNote {
+        color: white; 
+        background: black;
+      }
+    }
+  }
+
+
+  }
+  .guitar-scaleDisplay {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    .current-scale-name {
+      border: 1px solid black;
+      display: flex;
+      width: 100%;
+       div {
+        width: auto;
+        display: flex;
+       }
+    }
+    .guitarIntervalContain {
+      display: flex;
+      flex-direction: row;
+      flex-wrap:  wrap;
+
+      .scaleDisNote {
+        width: 50%;
+      }
+    }
+    .choose-scale {
+      border: 1px solid black;
+      display: flex;
+      .scale-selection {
+        display: flex; 
+        flex-direction: column;
+        width: 100%;
+        .root-selection {
+          border: 1px solid black;
+          width: 100%;
+          .tuning-up {
+            display: flex;
+            width: 100%;
+            .chooseNotes {
+              width: 8.33%;
+              border: 1px solid black;
+            }
+            .currentTuneNote {
+              background: red;
+              color: white;
+            }          
+          }
+
+        }
+        .scales {
+          display: flex;
+          flex-wrap: wrap;
+
+          .scale-select-item {
+            border: 1px solid black;
+            width: 25%;
+            transition: all 0.3s ease;
+            &:hover {
+              cursor: pointer;
+              background: black;
+              color: white;
+            }
+          }
+          .activescale {
+            background:  black;
+            color: white;
+          }
+        }        
+
+      }
+    } 
+  }
+}
+.guitar-scales {
+  margin: 1%;
+  background: url(/images/fretboard.png) no-repeat;
+  background-size: 100% 100%;
+  .strings {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    color: black;
+
+
+    .frets {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 5vh;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+
+      .innerfret {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+
+
+    .fret0 {
+      width: 2%;
+      border-color: white;
+      color: black;
+    }   
+
+    /* Gotta find a better way to do this */
+    
+    .fret1 {
+      width: 8%;
+    }
+    .fret2 {
+      width: 7%;
+    }
+    .fret3 {
+      width: 6.35%;
+    }
+    .fret4 {
+      width: 5.8%;
+    }
+    .fret5 {
+      width: 5.25%;
+    }
+    .fret6 {
+      width: 5%;
+    }
+    .fret7 {
+      width: 4.7%;
+    }
+
+    .fret8 { 
+      width: 4.45%;
+    } 
+    .fret9 {
+      width: 4.12%;
+    }
+    .fret10 {
+      width: 4.3%;
+    }
+    .fret11 {
+      width: 3.85%;
+    }
+    .fret12 {
+      width: 3.7%;
+    }
+    .fret13 {
+      width: 3.5%;
+    }
+    .fret14 {
+      width: 3.33% ;
+
+    }
+    .fret15 {
+      width: 3.4%;
+    }
+    .fret16 {
+      width: 3.1%;
+    }
+    .fret17 {
+      width: 3%;
+    }
+    .fret18 {
+      width: 3.4%;
+    }
+    .fret19 {
+      width: 2.90%;
+    }
+    .fret20 {
+      width: 2.7%;
+    }
+    .fret21 {
+      width: 2.5%;
+    }
+    .fret22 {
+      width: 2.4%;
+    }
+    .fret23 {
+      width: 2.3%;
+    }
+    .fret24 {
+      width: 1.25%;
+    }
+  }
+}

@@ -27,13 +27,13 @@ RenderSite();
 import '../css/style.scss';
 import React from "react";
 import ReactDOM from "react-dom";
+import GuitarScale from './Pages/guitarscales.js';
 
 class App extends React.Component {
   render() {
     return (
        <div className='bodyContain'>
-        Hello {this.props.name}<br/>
-        This is the react version. 
+        <GuitarScale></GuitarScale>
       </div>
       )
   }
