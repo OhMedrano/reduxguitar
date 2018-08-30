@@ -48,31 +48,69 @@
     .stringDisplay {
       border: 1px solid black;
     }
-  }
-  .guitar-control-switch {
-    width: 30%;
-  .guitar-tune {
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    text-align: center;
 
-    .tuning-up {
-      display: flex;
+    .sharpChanges {
+      border: 1px solid black;
+      display: flex; 
+      flex-direction: row;
 
-      
-      .chooseNotes {
-        width: 8.33%;
-        border: 1px solid black;
+      > div {
+        width: 50%;
       }
-
-      .currentTuneNote {
-        color: white; 
+      .activeSharp {
         background: black;
+        color: white;
+      }
+      .notActive {
+        background: none;
+        color: black;
       }
     }
   }
+  .guitar-control-switch {
+    width: 30%;
+    .guitar-tune {
+      display: flex;
+      flex-direction: column;
+      font-size: 20px;
+      text-align: center;
 
+      .tuning-up {
+        display: flex;
+
+        
+        .chooseNotes {
+          width: 8.33%;
+          border: 1px solid black;
+        }
+
+        .currentTuneNote {
+          color: white; 
+          background: black;
+        }
+      }
+    }
+    .guitar-fixed-tunes {
+      border: 1px solid black;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .altTunes {
+        width: 33.33%;
+        transition: all 0.5s ease;
+        text-align: center; 
+        &:hover {
+          cursor: pointer;
+          background: black;
+          color: white;
+        }
+      }
+      .choseAltTunes {
+        background: black;
+        color: white;
+      }
+    }
 
   }
   .guitar-scaleDisplay {
@@ -98,21 +136,21 @@
       }
     }
     .choose-scale {
-      border: 1px solid black;
+
       display: flex;
       .scale-selection {
         display: flex; 
         flex-direction: column;
         width: 100%;
         .root-selection {
-          border: 1px solid black;
+
           width: 100%;
           .tuning-up {
             display: flex;
             width: 100%;
             .chooseNotes {
               width: 8.33%;
-              border: 1px solid black;
+
             }
             .currentTuneNote {
               background: red;
@@ -126,7 +164,7 @@
           flex-wrap: wrap;
 
           .scale-select-item {
-            border: 1px solid black;
+            
             width: 25%;
             transition: all 0.3s ease;
             &:hover {

@@ -90,12 +90,12 @@ class GuitarTune extends React.Component {
       let noted = musicNotes[i];
 
       if(i == targetVal) {
-        return <div className={'currentTuneNote chooseNotes'} onClick={()=>{this.changeTune(i,targetString)}}key={i}> {noted} </div>
+        return <div className={'currentTuneNote chooseNotes'} onClick={()=>{this.changeTune(i,targetString), console.log(i)}}key={i}> {noted} </div>
       } else {
         return <div className={'chooseNotes'} onClick={()=>{this.changeTune(i,targetString)}}key={i}> {noted} </div>
       }
     });
-    
+     
     return (
       <div className='tuning-up'> 
         {showNote}
@@ -110,12 +110,12 @@ class GuitarScale extends React.Component {
     super()
     this.state = {
       sharpFlat: true,
-      scaleChoose: false,
+      scaleChoose: true,
       tuningGroup: false,
-      musicalNotes: [
-        {"sharps": ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'],},
-        {"flats": ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'],}
-      ],
+      musicalNotes: {
+        "sharps": ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'],
+        "flats": ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'],
+      },
       musicScales: [
         {'name':'Major/Ionian','scale':[0,2,4,5,7,9,11]},
         {'name':'Minor/Aeolian','scale':[0,2,3,5,7,8,10]},
@@ -164,17 +164,36 @@ class GuitarScale extends React.Component {
         {'name': 'stringA','stringVal':0},
         {'name': 'stringBottomE','stringVal':7},
       ],
+      altTunings: [
+        {'name':'Standard','forumla':[7,2,10,5,0,7]},
+        {'name':'D Tuning','forumla':[5,0,8,3,11,5]},
+        {'name':'C Tuning','forumla':[3,10,6,1,8,3]},
+        {'name':'B Tuning','forumla':[2,11,5,0,7,2]},
+        {'name':'Full Step Down','forumla':[5,0,8,3,10,5]},
+        {'name':'Minor Third','forumla':[6,3,0,9,6,3]},
+        {'name':'All Fourths','forumla':[7,3,8,5,0,8]},
+        {'name':'Major Sixth','forumla':[0,3,6,9,0,3]},
+        {'name':'Open A','forumla':[7,0,7,4,0,7]},
+        {'name':'Open B','forumla':[6,2,9,2,9,2]},
+        {'name':'Open C','forumla':[7,3,10,3,10,3]},
+        {'name':'Open D','forumla':[5,0,9,5,0,5]},
+        {'name':'DADDAD','forumla':[5,0,5,5,0,5]},
+        {'name':'Cello/Standard','forumla':[7,2,0,5,11,7]},
+        {'name':'Hot Type','forumla':[5,0,9,7,2,0]},
+        {'name':'Augmented Fourths','forumla':[9,3,9,3,9,3]}
+      ],
       currentScale: null,
       currentRoot: null,
       currentIntervals: null,
       currentConvertScale: null,
       currentScaleIndex: 0,
+      currentTuneIndex: 0,
     
     }
 
     this.changeStringRoot = this.changeStringRoot.bind(this);
     this.changeScaleRoot = this.changeScaleRoot.bind(this);
-
+    this.changeGroupTuning = this.changeGroupTuning.bind(this);
   }
   
   changeStringRoot(i,stringName) {
@@ -190,19 +209,22 @@ class GuitarScale extends React.Component {
   componentWillMount() {
     const defaultRoot = 3;
     const defaultScale =  this.state.musicScales[0];
-
+    
     this.defaultScaled = this.getScaleNotes(defaultRoot, defaultScale);
     this.setState({
-      currentRoot: defaultRoot
+      currentRoot: defaultRoot,
+      sharpFlat: true,
     })
   }
 
-  changeScaleRoot(i) {
-    this.getScaleNotes(i,this.state.currentScale)
+  changeScaleRoot(i,targe) {
+    this.getScaleNotes(i,this.state.currentScale);
+    console.log(i,targe);
     this.setState({
       currentRoot: i,
     })
   }
+  
 
   getScaleNotes(rot, scale) {
     const convertedNotes = [];
@@ -224,21 +246,48 @@ class GuitarScale extends React.Component {
       currentConvertScale: convertedNotes,
     })
   }
+  
+  changeGroupTuning(tuned,i) {
+    
+    const strings = this.state.strings.slice();
+    let diffStrings = strings;
+    const diffString = strings.map((strin,a) => {
+      console.log(strings[a]);
+      diffStrings[a].stringVal = tuned.forumla[a];
+    })
+    console.log(diffString);
+   
+    this.setState({
+      strings: diffStrings,
+      currentTuneIndex: i,
+    })
+    
 
+  }
 
   render() {
 
     const strings = this.state.strings;
     const musicScales = this.state.musicScales;
-    let notes = this.state.sharpFlat ? this.state.musicalNotes[0].sharps : this.state.musicalNotes[0].flats;
+    const musicNotes = this.state.musicalNotes;
+    let sharpFlats = this.state.sharpFlat;
+    let notes = sharpFlats ? musicNotes.sharps : musicNotes.flats;
     let scaledNotes = this.state.currentscale ? this.state.currentScale : this.state.musicScales[0].scale;
     let currentScaled = this.state.currentScale ? this.state.currentScale : {'name':'Minor/Aeolian','scale':[0,2,3,5,7,8,10]};
-    let currentRooted = this.state.currentRoot ? this.state.currentRoot : 3;
+    let currentRooted = this.state.currentRoot;
     let convertedNotes = this.state.currentConvertScale;
     let interNames = this.state.currentIntervals;
+    let altTunes = this.state.altTunings;
+
+    let altTuner = altTunes.map((tuning,i) => {
+      if(i == this.state.currentTuneIndex) {
+          return <div className='altTunes choseAltTunes' key={i} onClick={()=>{this.changeGroupTuning(tuning,i)}}> {tuning.name}</div>
+      } else {
+          return <div className='altTunes' key={i} onClick={()=>{this.changeGroupTuning(tuning,i)}}> {tuning.name}</div>
+      }
+    });
     
     let scalesChanges = musicScales.map((scal,i) => {
-      console.log(scal);
       if(this.state.currentScaleIndex == i ) {
         return (
           <div className='scale-select-item activescale' key={i} onClick={() => { this.getScaleNotes(currentRooted, scal), this.setState({currentScaleIndex: i})}}> {scal.name}</div>
@@ -326,32 +375,81 @@ class GuitarScale extends React.Component {
 
                         </div>;
 
+
+
+
     let scaleDisplayChange = this.state.scaleChoose ? scaleSelections : displayedScales;
 
     return (
       <div> 
         <div className='guitar-controls'> 
           <div className={'current-tune'}> 
+
             <div className='stringDisplay stringTopE'>Top string is currently on {notes[this.state.strings[0].stringVal]}</div>  
             <div className='stringDisplay stringB'>Second string is currently on {notes[this.state.strings[1].stringVal]}</div>                
             <div className='stringDisplay stringG'>Third string is currently on {notes[this.state.strings[2].stringVal]}</div>  
             <div className='stringDisplay stringD'>Fourth string is currently on {notes[this.state.strings[3].stringVal]}</div>  
             <div className='stringDisplay stringA'>Fifth string is currently on {notes[this.state.strings[4].stringVal]}</div>  
-            <div className='stringDisplay stringBottomE'>Bottom string is currently on {notes[this.state.strings[5].stringVal]}</div>          
-          </div>
+            <div className='stringDisplay stringBottomE'>Bottom string is currently on {notes[this.state.strings[5].stringVal]}</div>    
 
-          <div className='guitar-scaleDisplay'>
-              {scaleDisplayChange}
+
+            <div className='sharpChanges'> 
+              <div className={ sharpFlats ? 'activeSharp' : 'notActive' } onClick={() => {this.setState({sharpFlat: true})}}> Sharps </div>
+              <div className={ sharpFlats ? 'notActive' : 'activeSharp' } onClick={() => {this.setState({sharpFlat: false})}}> Flats </div>
+              
+
             </div>
+
+
+
+          </div>
           <div className='guitar-control-switch'> 
             {chooseStrings}
 
             <div className='guitar-fixed-tunes'>
-
+            {altTuner}
 
             </div>
 
-          </div>            
+          </div>  
+
+          <div className='guitar-scaleDisplay'>
+            <div className='display-scale'> 
+                <div className='current-scale-name'> Current Scale: <div className='scaleRoot'>{notes[currentRooted]}</div>  <div className='scaleName'>{currentScaled.name}</div></div>   
+                <ScaleDis 
+                  currentScale={currentScaled} 
+                  currentNotes={notes} 
+                  convertNotes={convertedNotes} 
+                  intervalNames={interNames}> 
+
+                </ScaleDis>
+          
+
+              </div>              
+
+
+              <div className='choose-scale'>
+                              <div className='scale-selection'>
+                                      <div className='root-selection'> 
+                                       <GuitarTune 
+                                          targetStringValue={currentRooted} 
+                                          changeNote={this.changeScaleRoot}  
+                                          targetString={'currentRoot'} 
+                                          displayNotes={notes}> 
+                                        </GuitarTune>
+
+
+                                      </div>
+                                      <div className='scales'> 
+                                        {scalesChanges}
+                                      </div>
+
+                                  </div>
+
+                          </div>
+
+            </div>
+          
         </div>
 
       
