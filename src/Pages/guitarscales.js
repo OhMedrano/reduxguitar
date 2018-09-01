@@ -14,9 +14,9 @@ class ScaleDis extends React.Component {
     const convertDisplay = convertNotes.map((note,i) => {
       let conNote = sharpsOrFlats[note];
       if(i >= 8) {
-        return <div key={i} className={`scaleDisNote ${intervalName[i].intClass[1]}`}> {conNote} </div>
+        return <div key={i} className={`scaleDisNote  scaledNote ${intervalName[i].intClass[1]}`}> {conNote} {intervalName[i].secName} </div>
       } else {
-        return <div key={i} className={`scaleDisNote ${intervalName[i].intClass[0]}`}> {conNote} </div>
+        return <div key={i} className={`scaleDisNote ${intervalName[i].intClass[0]}`}> {conNote} {intervalName[i].name} </div>
       }
     })
  
@@ -52,9 +52,9 @@ class GuitarString extends React.Component {
         if(stringScale[x] == fretNote) {
 
           if(x>=7) {
-            return <div className={`fret${i} frets`} key={i}> <div className={`innerfret ${intNames[x].intClass[1]}`}>{shownNote} </div> </div>
+            return <div className={`fret${i} frets`} key={i}> <div className={` scaledNote innerfret ${intNames[x].intClass[1]}`}>{shownNote} </div> </div>
           } else {
-            return <div className={`fret${i} frets`} key={i}> <div className={`innerfret ${intNames[x].intClass[0]}`}>{shownNote} </div> </div>
+            return <div className={`fret${i} frets`} key={i}> <div className={` scaledNote innerfret ${intNames[x].intClass[0]}`}>{shownNote} </div> </div>
           }
         }
       }
@@ -117,8 +117,8 @@ class GuitarScale extends React.Component {
         "flats": ['A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab'],
       },
       musicScales: [
-        {'name':'Major/Ionian','scale':[0,2,4,5,7,9,11]},
-        {'name':'Minor/Aeolian','scale':[0,2,3,5,7,8,10]},
+        {'name':'Major / Ionian','scale':[0,2,4,5,7,9,11]},
+        {'name':'Minor / Aeolian','scale':[0,2,3,5,7,8,10]},
         {'name':'Dorian','scale':[0,2,3,5,7,9,10]},
         {'name':'Phrygian','scale':[0,1,3,5,7,8,10]},
         {'name':'Lydian','scale':[0,2,4,6,7,9,11]},
@@ -381,10 +381,10 @@ class GuitarScale extends React.Component {
     let scaleDisplayChange = this.state.scaleChoose ? scaleSelections : displayedScales;
 
     return (
-      <div> 
+      <div className={this.props.classNames}> 
         <div className='guitar-controls'> 
           <div className={'current-tune'}> 
-
+            <div className='empty-string-title'> Change Tuning: </div>
             <div className='stringDisplay stringTopE'>Top string is currently on {notes[this.state.strings[0].stringVal]}</div>  
             <div className='stringDisplay stringB'>Second string is currently on {notes[this.state.strings[1].stringVal]}</div>                
             <div className='stringDisplay stringG'>Third string is currently on {notes[this.state.strings[2].stringVal]}</div>  
@@ -404,9 +404,11 @@ class GuitarScale extends React.Component {
 
           </div>
           <div className='guitar-control-switch'> 
+            <div className='choose-string-title'> Change Tuning: </div>
             {chooseStrings}
 
             <div className='guitar-fixed-tunes'>
+            <div className='tune-title'> Group Tunings: </div>
             {altTuner}
 
             </div>
@@ -431,6 +433,9 @@ class GuitarScale extends React.Component {
               <div className='choose-scale'>
                               <div className='scale-selection'>
                                       <div className='root-selection'> 
+                                      
+                                      <div className='root-title'> Choose Scale Root: </div>
+
                                        <GuitarTune 
                                           targetStringValue={currentRooted} 
                                           changeNote={this.changeScaleRoot}  
@@ -441,6 +446,8 @@ class GuitarScale extends React.Component {
 
                                       </div>
                                       <div className='scales'> 
+                                        <div className='scales-title'> Choose Scale: </div>
+
                                         {scalesChanges}
                                       </div>
 

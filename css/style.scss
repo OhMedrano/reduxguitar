@@ -3,7 +3,19 @@
 
 
 body {
-	background: white;
+	background: $darkBlack;
+  font-family: Blockletter;
+  
+  .guitar-tools-header {
+    font-size: 30px;
+    border: 1px solid black;
+    background: $darkGrey;
+    padding: 1%;
+    margin: 1% 0% 2%;
+  }
 
-	
+	.bodyItem {
+
+    background: $darkGrey;
+  }
 }

@@ -1,297 +1,557 @@
-.tonic, .octave {
-  background: #F2291A;
-}
-.minSec, .minNin {
-  background: #e58324;
-}
-.majSec, .majNin {
-  background: #fcb11b;
-}
-.minThird, .minTen {
-  background: #f2ce33;
-}
-.majThird, .majTen {
-  background: #fced2f;
-}
-.perFour, .perEle {
-  background: #bce536;
-}
-.augFour, .augEle {
-  background: #64fc2f;
-}
-.perFif, .perTwe {
-  background: #33e5bc;
-}
-.minSix, .minPBS {
-  background: #2b61f2;
-}
-.majSix, .majPBS {
-  background: #8f34e5;
-}
-.minSev, .minFTeen {
-  background: #e92dfc;
-}
-.majSev, .majFTeen {
-  background: #f24493;
-}
-
-.guitar-controls {
-  display: flex;
-  flex-direction: row; 
-  .current-tune {
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    font-size: 20px;
-
-    .stringDisplay {
-      border: 1px solid black;
-    }
-
-    .sharpChanges {
-      border: 1px solid black;
-      display: flex; 
-      flex-direction: row;
-
-      > div {
-        width: 50%;
-      }
-      .activeSharp {
-        background: black;
-        color: white;
-      }
-      .notActive {
-        background: none;
-        color: black;
-      }
-    }
+.GuitarScale {
+  div {
+    transition: all 0.3s ease;
   }
-  .guitar-control-switch {
-    width: 30%;
-    .guitar-tune {
+  .scaledNote {
+    color: black;
+  }
+  .tonic, .octave {
+    background: #F2291A;
+  }
+  .minSec, .minNin {
+    background: #e58324;
+  }
+  .majSec, .majNin {
+    background: #fcb11b;
+  }
+  .minThird, .minTen {
+    background: #f2ce33;
+  }
+  .majThird, .majTen {
+    background: #fced2f;
+  }
+  .perFour, .perEle {
+    background: #bce536;
+  }
+  .augFour, .augEle {
+    background: #64fc2f;
+  }
+  .perFif, .perTwe {
+    background: #33e5bc;
+  }
+  .minSix, .minPBS {
+    background: #2b61f2;
+    color: $lightWhite !important;
+  }
+  .majSix, .majPBS {
+    background: #8f34e5;
+    color: $lightWhite !important;
+  }
+  .minSev, .minFTeen {
+    background: #e92dfc;
+    color: $lightWhite !important;
+  }
+  .majSev, .majFTeen {
+    background: #f24493;
+    color: $lightWhite !important;
+  }
+
+  .guitar-controls {
+    display: flex;
+    flex-direction: row; 
+    .current-tune {
+      
       display: flex;
       flex-direction: column;
+      width: 30%;
       font-size: 20px;
-      text-align: center;
+      .empty-string-title {
+        font-size: 20px;
+        border-bottom: 1px solid black; 
+        width: 60%;
+        margin-bottom: 10px;
+      }
+      .stringDisplay {
+        border-bottom: 1px solid black;
+      }
 
-      .tuning-up {
-        display: flex;
-
-        
-        .chooseNotes {
-          width: 8.33%;
-          border: 1px solid black;
+      .sharpChanges {
+        border: 1px solid black;
+        display: flex; 
+        flex-direction: row;
+        margin: 2% 10%;
+        > div {
+          width: 50%;
+          text-align: center;
+          &:hover {
+            background: $darkBlack;
+            cursor: pointer;
+            color: white;
+          }
         }
-
-        .currentTuneNote {
-          color: white; 
-          background: black;
+        .activeSharp {
+          background: $darkBlack;
+          color: white;
+        }
+        .notActive {
+          background: none;
+          color: black;
         }
       }
     }
-    .guitar-fixed-tunes {
-      border: 1px solid black;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+    .guitar-control-switch {
+      width: 30%;
+      .choose-string-title {
+        font-size: 20px;
+        visibility: hidden;
+        margin-bottom: 11px;
+      }
+      .guitar-tune {
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        text-align: center;
 
-      .altTunes {
-        width: 33.33%;
-        transition: all 0.5s ease;
-        text-align: center; 
-        &:hover {
-          cursor: pointer;
-          background: black;
+        .tuning-up {
+          display: flex;
+
+          
+          .chooseNotes {
+            width: 8.33%;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            transition: all 0.4s ease;
+            &:hover {
+              background: $darkBlack; 
+              cursor: pointer;
+              color: white;
+            }
+            &:last-of-type {
+              border-right: 1px none;
+            }
+          }
+
+          .currentTuneNote {
+            color: white; 
+            background: $darkBlack;
+          }
+        }
+      }
+      .guitar-fixed-tunes {
+        
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .tune-title {
+              width: 100%;
+    font-size: 20px;
+    /* border-bottom: 1px solid black; */
+    margin-bottom: 5px;
+    align-items: center;
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 13px;
+        }
+        .altTunes {
+          width: 33.33%;
+          transition: all 0.5s ease;
+          text-align: center; 
+          font-size: 16px;
+          &:hover {
+            cursor: pointer;
+            background: $darkBlack;
+            color: white;
+          }
+        }
+        .choseAltTunes {
+          background: $darkBlack;
           color: white;
         }
       }
-      .choseAltTunes {
-        background: black;
-        color: white;
-      }
-    }
 
-  }
-  .guitar-scaleDisplay {
-    display: flex;
-    width: 40%;
-    flex-direction: column;
-    .current-scale-name {
-      border: 1px solid black;
+    }
+    .guitar-scaleDisplay {
       display: flex;
-      width: 100%;
-       div {
-        width: auto;
+      width: 40%;
+      flex-direction: column;
+      padding-left: 40px;
+      .current-scale-name {
+        
         display: flex;
-       }
-    }
-    .guitarIntervalContain {
-      display: flex;
-      flex-direction: row;
-      flex-wrap:  wrap;
-
-      .scaleDisNote {
-        width: 50%;
-      }
-    }
-    .choose-scale {
-
-      display: flex;
-      .scale-selection {
-        display: flex; 
-        flex-direction: column;
         width: 100%;
-        .root-selection {
+        font-size: 20px;
+         div {
+          width: auto;
+          display: flex;
+          margin-left: 2%;
 
+         }
+      }
+      .guitarIntervalContain {
+        display: flex;
+        flex-direction: row;
+        flex-wrap:  wrap;
+
+        .scaleDisNote {
+          width: 14.25%;
+          padding-left: 10px;
+          color: $darkBlack;
+        }
+      }
+      .choose-scale {
+
+        display: flex;
+        .scale-selection {
+          display: flex; 
+          flex-direction: column;
           width: 100%;
-          .tuning-up {
-            display: flex;
-            width: 100%;
-            .chooseNotes {
-              width: 8.33%;
+          margin-top: 10px;
 
+          .root-selection {
+            width: 100%;
+            
+            .root-title {
+              font-size: 20px;
             }
-            .currentTuneNote {
-              background: red;
-              color: white;
-            }          
+
+            .tuning-up {
+              display: flex;
+              width: 100%;
+              .chooseNotes {
+                width: 8.33%;
+                font-size: 20px;
+                text-align: center;
+
+                &:hover {
+                  cursor: pointer;
+                  background: $darkBlack;
+                  color: white;
+                }
+              }
+              .currentTuneNote {
+                background: $darkBlack;
+                color: white;
+              }          
+            }
+
           }
+          .scales {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            
+            .scales-title {
+              width: 100%;
+              font-size: 20px;
+            }
+
+
+            .scale-select-item {
+              font-size: 16px;
+              width: 25%;
+              transition: all 0.3s ease;
+              text-align: center;
+              &:hover {
+                cursor: pointer;
+                background: $darkBlack;
+                color: white;
+              }
+            }
+            .activescale {
+              background:  $darkBlack;
+              color: white;
+            }
+          }        
 
         }
-        .scales {
-          display: flex;
-          flex-wrap: wrap;
-
-          .scale-select-item {
-            
-            width: 25%;
-            transition: all 0.3s ease;
-            &:hover {
-              cursor: pointer;
-              background: black;
-              color: white;
-            }
-          }
-          .activescale {
-            background:  black;
-            color: white;
-          }
-        }        
-
-      }
-    } 
+      } 
+    }
   }
-}
-.guitar-scales {
-  margin: 1%;
-  background: url(/images/fretboard.png) no-repeat;
-  background-size: 100% 100%;
-  .strings {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    color: black;
-
-
-    .frets {
+  .guitar-scales {
+    margin: 1%;
+    background: url(/images/fretboard.png) no-repeat;
+    background-size: 100% 100%;
+    .strings {
+      width: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 5vh;
-      font-size: 16px;
-      font-weight: bold;
-      color: white;
+      flex-direction: row;
+      color: black;
 
-      .innerfret {
-        width: 100%;
-        text-align: center;
+
+      .frets {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 5vh;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+
+        .innerfret {
+          width: 100%;
+          text-align: center;
+          transition: all 0.5s ease;
+        }
+      }
+
+
+
+      .fret0 {
+        width: 2%;
+        border-color: white;
+        color: black;
+      }   
+
+      /* Gotta find a better way to do this */
+      
+      .fret1 {
+        width: 8%;
+      }
+      .fret2 {
+        width: 7%;
+      }
+      .fret3 {
+        width: 6.35%;
+      }
+      .fret4 {
+        width: 5.8%;
+      }
+      .fret5 {
+        width: 5.25%;
+      }
+      .fret6 {
+        width: 5%;
+      }
+      .fret7 {
+        width: 4.7%;
+      }
+
+      .fret8 { 
+        width: 4.45%;
+      } 
+      .fret9 {
+        width: 4.12%;
+      }
+      .fret10 {
+        width: 4.3%;
+      }
+      .fret11 {
+        width: 3.85%;
+      }
+      .fret12 {
+        width: 3.7%;
+      }
+      .fret13 {
+        width: 3.5%;
+      }
+      .fret14 {
+        width: 3.33% ;
+
+      }
+      .fret15 {
+        width: 3.4%;
+      }
+      .fret16 {
+        width: 3.1%;
+      }
+      .fret17 {
+        width: 3%;
+      }
+      .fret18 {
+        width: 3.4%;
+      }
+      .fret19 {
+        width: 2.90%;
+      }
+      .fret20 {
+        width: 2.7%;
+      }
+      .fret21 {
+        width: 2.5%;
+      }
+      .fret22 {
+        width: 2.4%;
+      }
+      .fret23 {
+        width: 2.3%;
+      }
+      .fret24 {
+        width: 1.25%;
       }
     }
+  }  
 
 
 
-    .fret0 {
-      width: 2%;
-      border-color: white;
-      color: black;
-    }   
+}
 
-    /* Gotta find a better way to do this */
+
+
+@media (max-width: 500px) {
+  .GuitarScale {
+    flex-direction: column;
     
-    .fret1 {
-      width: 8%;
-    }
-    .fret2 {
-      width: 7%;
-    }
-    .fret3 {
-      width: 6.35%;
-    }
-    .fret4 {
-      width: 5.8%;
-    }
-    .fret5 {
-      width: 5.25%;
-    }
-    .fret6 {
-      width: 5%;
-    }
-    .fret7 {
-      width: 4.7%;
-    }
+    .guitar-controls {
+      flex-direction: column;
+      .current-tune,
+      .guitar-control-switch,
+      .guitar-scaleDisplay {
+        width: 100%;
+        padding: 0;
+      }
+      
+      .guitar-scaleDisplay {
+        .scaleDisNote {
+          width: 50% !important;
+          padding: 1% !important;
+          font-size: 20px;
 
-    .fret8 { 
-      width: 4.45%;
+          &.tonic {
+            color: $lightWhite;
+          }
+        }
+      }
+
+    }   
+    .guitar-scales {
+      background: url(/images/mobileFretboard.png) no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      flex-wrap: wrap;
+      height: 358vh;
+
+      .strings {
+        width: 16.3%;
+        display: flex;
+        flex-direction: column;
+        
+        .frets {
+          width: 100% !important;
+
+          .innerfret {
+            height: 50%;
+            width: 65%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .fret0 {
+          height: 3%;
+          border-color: white;
+          color: black;
+        }   
+
+        /* Gotta find a better way to do this */
+        
+        .fret1 {
+          height: 6%;
+        }
+        .fret2 {
+          margin-top: 34%;
+          height: 7%;
+        }
+        .fret3 {
+          margin-top: 23%;
+          height: 6%;      
+        }
+        .fret4 {
+          margin-top: 0%;
+          height: 6%;
+        }
+        .fret5 {
+          margin-top: 41%;
+          height: 4%; 
+        }
+        .fret6 {
+          margin-top: 0%;
+          height: 6%;
+        }
+        .fret7 {
+          height: 4%;          
+        }
+        .fret8 { 
+          height: 4%;
+          margin-top: 11%;
+        } 
+        .fret9 {
+          height: 4%;
+          margin-top: 11%;
+        }
+        .fret10 {
+          height: 4%;
+          margin-top: 15%;  
+        }
+        .fret11 {
+          height: 4%;
+        }
+        .fret12 {
+          margin-top: 7%;
+          height: 3%;
+        }
+        .fret13 {
+          height: 4%;
+          margin-top: 6%;
+        }
+        .fret14 {
+          height: 3%;  
+        }
+        .fret15 {
+          height: 3.5%;
+        }
+        .fret16 {
+          height: 3%;
+        }
+        .fret17 {
+          height: 3%;
+          margin-top: 9%;
+        }
+        .fret18 {
+          height: 3.25%;
+        }
+        .fret19 {
+          height: 3%;
+        }
+        .fret20 {
+          height: 2.75%;
+        }
+        .fret21 {
+          height: 2.5%;
+        }
+        .fret22 {
+          height: 2.25%;
+        }
+        .fret23 {
+          height: 2.25%;
+        }
+        .fret24 {
+          height: 2%;
+        }        
+      }
     } 
-    .fret9 {
-      width: 4.12%;
-    }
-    .fret10 {
-      width: 4.3%;
-    }
-    .fret11 {
-      width: 3.85%;
-    }
-    .fret12 {
-      width: 3.7%;
-    }
-    .fret13 {
-      width: 3.5%;
-    }
-    .fret14 {
-      width: 3.33% ;
-
-    }
-    .fret15 {
-      width: 3.4%;
-    }
-    .fret16 {
-      width: 3.1%;
-    }
-    .fret17 {
-      width: 3%;
-    }
-    .fret18 {
-      width: 3.4%;
-    }
-    .fret19 {
-      width: 2.90%;
-    }
-    .fret20 {
-      width: 2.7%;
-    }
-    .fret21 {
-      width: 2.5%;
-    }
-    .fret22 {
-      width: 2.4%;
-    }
-    .fret23 {
-      width: 2.3%;
-    }
-    .fret24 {
-      width: 1.25%;
-    }
   }
 }
+
+
+@media (min-width: 500px) and (max-width: 990px) {
+  .GuitarScale {
+    flex-direction: column;
+
+    .guitar-controls {
+      
+      flex-wrap: wrap;
+      .current-tune,
+      .guitar-control-switch {
+        width: 50%;
+      }
+      .guitar-scaleDisplay {
+        width: 100%;
+        padding: 0;
+      }
+
+    }
+    .guitar-scales {
+      margin: 2% 0%;
+
+      .strings {
+        .frets {
+          height: 3vh;
+          font-size: 12px !important;
+        }
+      }
+    }
+    
+  }
+}
+

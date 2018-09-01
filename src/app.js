@@ -32,8 +32,10 @@ import GuitarScale from './Pages/guitarscales.js';
 class App extends React.Component {
   render() {
     return (
-       <div className='bodyContain'>
-        <GuitarScale></GuitarScale>
+       <div className='bodyContain col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+        <div className='guitar-tools-header col-xs-12 col-sm-12 col-md-12 col-lg-12'> Guitar Tools... </div>
+
+        <GuitarScale classNames='GuitarScale bodyItem col-xs-12 col-sm-12 col-md-12 col-lg-12'></GuitarScale>
       </div>
       )
   }
