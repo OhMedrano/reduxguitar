@@ -1,0 +1,219 @@
+@import  '../settings.scss';
+
+.HarmVis {
+  background: green;
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1%;
+  div {
+    transition: all 0.3s ease;
+  }
+  .instructions {
+    
+    width: 40%;
+    height: 40%;
+    margin-right: 10%; 
+    flex-direction: column;
+    .instruct-title {
+      font-size: 25px;
+      border-bottom: 4px solid $darkBlack;
+      width: 30%;
+    }
+    .instruct-content {
+      font-size: 18px;
+      margin-top: 2%;
+    }
+  }
+  .controls {
+    font-size: 20px;
+    height: 40%;
+    width: 50%; 
+    display: flex; 
+    flex-direction: row;
+
+    .control-titles {
+      font-size: 25px;
+      border-bottom: 4px solid $darkBlack;
+      margin-bottom: 2%;
+    }
+
+    .ratio-change {
+      margin-right: 25px;
+      width: 25%;
+
+      .ratios-option {
+        width: 40%;
+        padding: 0 10px;
+        &:hover {
+          background: $darkBlack;
+          cursor: pointer;
+          color: white;
+        }
+
+        &.activeRatio {
+          background: green;
+          &.active_Half {
+            background: red;
+            color: white;
+          }
+          &.active_Quarter {
+            background: yellow;
+          }
+          &.active_Fifth {
+            background: blue;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .fretChange {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+
+      .fret-option {
+        width: 12%;
+        margin: 1%;
+        padding: 1%;
+        &:hover {
+          background: $darkBlack;
+          color: white;
+          cursor: pointer;
+        }
+      }
+      .activeFret {
+        background: $darkBlack;
+        color: white;
+      }
+    }
+  }
+  .guitar {
+    margin: 4% 2% 2%;
+    height: 45vh;
+    width: 80%;
+    .guitar-body {
+      background: url(/images/vectorGuitar.png) no-repeat;
+      height: 100%;
+      width: 100%;
+      background-size: 100% 100%;
+      display: flex;
+      align-items: center;
+      .guitar-scale-length {
+
+        height: 15%;
+        width: 60%;
+        margin: 0% 16.5% 0 23.5%;  
+        display: flex;
+        flex-direction: row;
+        
+        .initial-scale-length {
+          display: flex;
+          border-right: 4px solid red;
+          border-left: 4px solid red;
+         .scaled {
+            height: 100%;
+             border-right: 10px solid black;
+          }
+          .scaled_Half {
+            width: 50%;
+            border-color:  red;
+          } 
+          .scaled_Third {
+            width: 33.33%;
+            border-color:  green;
+          }
+          .scaled_Quarter {
+            width: 25%;
+            border-color: yellow;
+          }
+          .scaled_Fifth {
+            width: 20%;
+            border-color: blue;
+          }                              
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .HarmVis {
+    flex-direction: column;
+
+    .instructions,
+    .controls {
+      width: 100%;
+      margin-bottom: 2%;
+    }
+    .controls {
+      flex-direction: column;
+
+      .ratio-change {
+        width: 100%;
+
+        .ratio-options {
+          display: flex;
+          flex-wrap: wrap;
+
+          .ratios-option {
+            margin: 1%;
+
+            &:hover {
+              color: $darkBlack;
+            }
+          }
+
+        }
+      }
+    }
+
+    .guitar {
+      border: 5px solid black;
+      width: 100%;
+      height: 106vh;
+      margin: 2% 0% 0%;
+
+      .guitar-body {
+        background: url(/images/vectorGuitarMobile.png) no-repeat;
+        background-size: 100% 100%;
+        height: 100%;
+        width: 100%;
+        align-items: baseline;
+        justify-content: center;
+        .hidden-small {
+          display: none;
+        }
+        .hidden-desktop {
+          display: flex;
+          margin: 0;
+          width: 20%;
+          flex-direction: column;
+          margin-top: 34%;
+          height: 61%;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+@media (min-width: 500px) and (max-width: 990px) {
+  .HarmVis {
+    flex-direction: column;
+
+    .instructions, .controls { 
+      width: 100%;
+      margin-bottom: 2%;
+    }
+
+    .guitar {
+      height: 30vh;
+      width: 95%;
+    }
+  }
+}

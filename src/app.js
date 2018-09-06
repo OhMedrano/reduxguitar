@@ -28,14 +28,34 @@ import '../css/style.scss';
 import React from "react";
 import ReactDOM from "react-dom";
 import GuitarScale from './Pages/guitarscales.js';
-
+import HarmVis from './Pages/harmview.js';
 class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      toolIndex: 1,
+      guitarTools: [
+        'Guitar Scales',
+        'Harmonic Visualizer'
+      ],
+    }
+  }
   render() {
+    const toolCurrentIndex = this.state.toolIndex;
+    const toolsArray = [
+      <GuitarScale classNames='GuitarScale bodyItem col-xs-12 col-sm-12 col-md-12 col-lg-12'></GuitarScale>,
+      <HarmVis classNames='HarmVis bodyItem col-xs-12 col-sm-12 col-md-12 col-lg-12'></HarmVis>,
+    ];
     return (
        <div className='bodyContain col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <div className='guitar-tools-header col-xs-12 col-sm-12 col-md-12 col-lg-12'> Guitar Tools... </div>
+        <div className='guitar-tools-header col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+          <div className='guitar-tools-headText'>  Guitar Tools... </div> 
 
-        <GuitarScale classNames='GuitarScale bodyItem col-xs-12 col-sm-12 col-md-12 col-lg-12'></GuitarScale>
+
+
+        </div>
+
+        {toolsArray[toolCurrentIndex]}
       </div>
       )
   }
